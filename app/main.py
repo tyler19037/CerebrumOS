@@ -1,6 +1,12 @@
-def main():
-    print("TitanOS online")
+from fastapi import FastAPI
+from app.api.routes import router
 
 
-if __name__ == "__main__":
-    main()
+app = FastAPI(
+    title="TitanOS",
+    description="AI Personal Operating System",
+    version="0.1.0"
+)
+
+
+app.include_router(router)
