@@ -1,4 +1,7 @@
 from fastapi import APIRouter
+from app.models.schemas import ChatRequest, ChatResponse
+from app.services.ai_service import generate_response
+
 
 router = APIRouter()
 
@@ -11,8 +14,10 @@ def home():
     }
 
 
-@router.get("/assistant")
-def assistant():
-    return {
-        "response": "Hello, I am TitanOS. How can I help?"
-    }
+@router.post("/chat", response_model=ChatResponse)
+def chat(request: ChatRequest):
+    response = generate_response(request.message)
+
+    return ChatResponse(
+        response=response
+    )
